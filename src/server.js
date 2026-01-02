@@ -14,10 +14,10 @@ const authMiddleware = require("./middleware/auth.middleware");
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/health", healthRoutes);
-app.use("/auth", authRoutes);
-app.use("/tasks", authMiddleware, taskRoutes);
-app.use("/user", authMiddleware, userRoutes);
+app.use("/api/health", healthRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", authMiddleware, taskRoutes);
+app.use("/api/user", authMiddleware, userRoutes);
 
 async function main() {
   try {
