@@ -24,7 +24,9 @@ const register = async (req, res) => {
     const newUser = { name, email, password: hashedPassword };
     const savedUser = await prisma.user.create({ data: newUser });
     const token = generateToken(savedUser.id, res);
-    return res.status(200).json({ savedUser });
+    return res
+      .status(200)
+      .json({ message: "register successfull", token: token });
   } catch (e) {
     return res.status(401).send({ message: "encountered an error", error: e });
   }
@@ -50,7 +52,7 @@ const login = async (req, res) => {
   }
   const token = generateToken(user.id, res);
 
-  return res.status(200).send({ message: "login successfull" });
+  return res.status(200).send({ message: "login successfull", token: token });
 };
 
 const logout = async (req, res) => {

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const prisma = require("./utils/db");
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -13,7 +14,12 @@ const authMiddleware = require("./middleware/auth.middleware");
 
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", authMiddleware, taskRoutes);
